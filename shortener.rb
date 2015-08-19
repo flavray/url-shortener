@@ -1,5 +1,5 @@
-require "./response"
-require "./server"
+require "./http/response"
+require "./http/server"
 
 if __FILE__ == $0
   server = Server.new("localhost", 1234)

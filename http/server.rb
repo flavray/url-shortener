@@ -1,5 +1,5 @@
 require "socket"
-require "./request"
+require "./http/request"
 
 class Server
   def initialize(host, port)
