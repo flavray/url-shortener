@@ -1,4 +1,5 @@
 require "socket"
+require "./request"
 
 class Server
   def initialize(host, port)
@@ -9,7 +10,7 @@ class Server
     loop do
       socket = @server.accept
 
-      response = yield socket.gets
+      response = yield Request.new(socket.gets)
 
       headers = [
         "HTTP/1.1 #{response.code}",
