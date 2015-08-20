@@ -27,7 +27,7 @@ class Sqlite < Database
 
   def fetch(short)
     # TODO: ? instead of %s
-    @handler.execute("SELECT url FROM urls WHERE short = '%s'" % short) do |url|
+    @handler.execute("SELECT url FROM urls WHERE short = '%s' LIMIT 1" % short) do |url|
       return url[0]
     end
 
