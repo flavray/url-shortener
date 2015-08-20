@@ -10,7 +10,7 @@ class Server
     loop do
       socket = @server.accept
 
-      response = yield Request.new(socket.gets)
+      response = yield Request.new(socket)
 
       headers = [
         "HTTP/1.1 #{response.code}",

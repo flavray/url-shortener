@@ -1,12 +1,18 @@
 class Request
-  attr_reader :method, :uri
+  attr_reader :method, :uri, :headers, :body
 
-  # request from a HTTP request-line
-  def initialize(line)
-    data = line.split
+  # request from a TCP socket, HTTP request-line, headers and body
+  def initialize(socket)
+    @method, @uri = socket.gets.split
+    @headers = {}
 
-    @method = data[0]
-    @uri = data[1]
+    while data = socket.gets.split(" ", 2)
+      name, value = data
+      break if name.empty?
+      @headers[name.chop] = value.strip
+    end
+
+    @body = socket.read(@headers["Content-Length"].to_i)
   end
 
   def to_s
