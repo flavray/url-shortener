@@ -14,7 +14,7 @@ if __FILE__ == $0
       url = request.body
       short = BaseShortener.shorten(database.id, url)
       database.insert(short, url)
-      Response.ok("http://localhost/#{short}")
+      Response.ok("http://localhost:1234/#{short}")
     elsif request.method == "GET"
       short = request.uri[1..-1]
       url = database.fetch(short)
