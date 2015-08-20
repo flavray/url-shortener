@@ -8,4 +8,4 @@ Simple Ruby URL shortener
 
 ## Running
 
-* `bundle exec ruby shortener.rb`
+* `bundle exec ruby main.rb`
