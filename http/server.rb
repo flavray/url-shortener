@@ -21,6 +21,8 @@ class Server
 
       socket.print headers.join("\r\n")
 
+      socket.print "\r\n"
+
       socket.print "\r\n#{response.content}" unless response.content.length.zero?
 
       socket.close
