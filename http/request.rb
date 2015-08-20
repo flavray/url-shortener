@@ -3,15 +3,18 @@ class Request
 
   # request from a TCP socket, HTTP request-line, headers and body
   def initialize(socket)
+    # read request-line
     @method, @uri = socket.gets.split
     @headers = {}
 
-    while data = socket.gets.split(" ", 2)
-      name, value = data
+    # read headers
+    loop do
+      name, value = socket.gets.split(" ", 2)
       break if name.empty?
       @headers[name.chop] = value.strip
     end
 
+    # read body
     @body = socket.read(@headers["Content-Length"].to_i)
   end
 
