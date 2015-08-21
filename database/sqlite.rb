@@ -2,8 +2,8 @@ require "sqlite3"
 require "./database/database"
 
 class Sqlite < Database
-  def initialize
-    @handler = SQLite3::Database.new("database.sqlite3")
+  def initialize(filepath)
+    @handler = SQLite3::Database.new(filepath)
 
     @handler.execute <<-SQL
       CREATE TABLE IF NOT EXISTS urls (

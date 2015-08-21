@@ -1,5 +1,5 @@
 class Database
-  def initialize
+  def initialize(filepath)
     raise NotImplementedError
   end
 

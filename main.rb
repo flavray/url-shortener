@@ -1,11 +1,21 @@
+#!/usr/bin/env ruby
+
 require "./database/sqlite"
 require "./http/response"
 require "./http/server"
+require "./options/parser"
 require "./shortener/base_shortener"
 
 if __FILE__ == $0
-  server = Server.new("localhost", 1234)
-  database = Sqlite.new
+  options, status = Parser.parse(ARGV)
+
+  unless status
+    puts options.opts
+    exit
+  end
+
+  server = Server.new("localhost", options.port)
+  database = Sqlite.new(options.database)
 
   server.run do |request|
     puts request
@@ -14,7 +24,7 @@ if __FILE__ == $0
       url = request.body
       short = BaseShortener.shorten(database.id, url)
       database.insert(short, url)
-      Response.ok("http://localhost:1234/#{short}")
+      Response.ok("#{options.domain}#{short}")
     elsif request.method == "GET"
       short = request.uri[1..-1]
       url = database.fetch(short)
